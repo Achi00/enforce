@@ -71,11 +71,11 @@ const Orders: React.FC = () => {
       <Box>
         <Container maxWidth="lg">
           <Box my={4}>
-            <Typography variant="h4" component="h1" gutterBottom>
-              შეკვეთა წარმატებით შეიქმნა!
-            </Typography>
             <Card>
               <CardContent>
+                <Typography variant="h3" fontSize="700" gutterBottom>
+                  შეკვეთა წარმატებით შეიქმნა
+                </Typography>
                 <Typography variant="h6" gutterBottom>
                   შეკვეთის ID: {orders._id}
                 </Typography>

@@ -185,9 +185,9 @@ export const Sider: typeof DefaultSider = ({ render }) => {
                 py: isNested ? 1.25 : 1,
                 "&.Mui-selected": {
                   "&:hover": {
-                    backgroundColor: isSelected ? "#03045e" : "transparent",
+                    backgroundColor: isSelected ? "#ba875c" : "transparent",
                   },
-                  backgroundColor: isSelected ? "#023e8a" : "transparent",
+                  backgroundColor: isSelected ? "#000" : "transparent",
                 },
                 justifyContent: "center",
                 margin: "10px auto",
@@ -200,7 +200,7 @@ export const Sider: typeof DefaultSider = ({ render }) => {
                 sx={{
                   justifyContent: "center",
                   minWidth: 36,
-                  color: isSelected ? "#fff" : "#160A17",
+                  color: isSelected ? "#F5EFDF" : "#000",
                 }}
               >
                 {icon ?? <ListOutlined />}
@@ -211,7 +211,7 @@ export const Sider: typeof DefaultSider = ({ render }) => {
                   noWrap: true,
                   fontSize: "16px",
                   fontWeight: isSelected ? "bold" : "normal",
-                  color: isSelected ? "#fff" : "#160A17",
+                  color: isSelected ? "#F5EFDF" : "#160A17",
                   marginLeft: "10px",
                 }}
               />

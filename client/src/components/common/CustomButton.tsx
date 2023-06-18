@@ -22,6 +22,7 @@ const CustomButton = ({
       sx={{
         flex: fullWidth ? 1 : "unset",
         padding: "15px 15px",
+        lineHeight: "15px",
         mt: "20px",
         width: fullWidth ? "200px" : { lg: width, md: "10px", xs: "10px" },
         borderRadius: "15px",

@@ -107,6 +107,34 @@ const Form = ({
                   color: "#11142d",
                 }}
               >
+                Enter nutritions
+              </FormHelperText>
+              <TextareaAutosize
+                minRows={5}
+                required
+                placeholder="Enter nutritions"
+                color="info"
+                style={{
+                  width: "100%",
+                  background: "transparent",
+                  fontSize: "20px",
+                  borderColor: "rgba(0, 0, 0, 0.23)",
+                  borderRadius: 6,
+                  padding: 10,
+                  color: "#919191",
+                }}
+                {...register("nutritions", { required: true })}
+              />
+            </FormControl>
+            <FormControl>
+              <FormHelperText
+                sx={{
+                  fontWeight: 500,
+                  margin: "10px 0",
+                  fontSize: 20,
+                  color: "#11142d",
+                }}
+              >
                 Enter Weight
               </FormHelperText>
               <TextareaAutosize

@@ -10,6 +10,10 @@ body, html {
   overflow-x: hidden;
 }
 
+main {
+  background: linear-gradient(to right, #F6F7FF 0%, #ced4da 100%);
+}
+
 h1 {
   font-family: 'Kanit', sans-serif;
   font-weight: 700;
@@ -188,6 +192,9 @@ a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #F5EFDF;
+  border: 1px solid #000;
+  border-radius: 35px;
 }
 
 
@@ -211,23 +218,26 @@ a:hover {
 }
 
 .next {
-  right: 0px;
+  right: 15px;
 }
 
 .prev {
-  left: 0px;
+  left: 15px;
   transform: scale(-1);
 }
 
 .slider-img {
   position: absolute;
-  max-width: 60%;
+  max-width: 100%;
   height: auto;
   border-radius: 35px;
   cursor: pointer;
 }
 
 @media only screen and (max-width: 1024px) {
+  .slider-container {
+    width: 80%;
+  }
   .slider-img {
     position: absolute;
     max-width: 120%;
@@ -243,6 +253,9 @@ a:hover {
     height: auto;
     border-radius: 35px;
     cursor: pointer;
+  }
+  .slider-container {
+    width: 100%;
   }
 }
 

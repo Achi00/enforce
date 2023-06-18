@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { TiDeleteOutline } from "react-icons/ti";
@@ -32,6 +32,22 @@ const Cart = () => {
     setShowCart,
     setCartItems,
   } = useStateContext();
+
+  const [clientToken, setClientToken] = useState(null);
+
+  useEffect(() => {
+    fetch("http://localhost:8080/client_token", {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Client token fetched: ", data.clientToken);
+        setClientToken(data.clientToken);
+      })
+      .catch((error) => {
+        console.error("Error fetching client token: ", error);
+      });
+  }, []);
 
   // Read from localStorage and update state when the component mounts
   useEffect(() => {
@@ -92,7 +108,11 @@ const Cart = () => {
           <AiOutlineLeft />
           <Typography fontWeight="700">Your Cart</Typography>
         </Stack>
-        <Typography sx={{ color: "#023e8a" }}>
+        <Typography
+          sx={{
+            color: "#000",
+          }}
+        >
           <TiDeleteOutline size={35} />
         </Typography>
       </Button>
@@ -104,15 +124,16 @@ const Cart = () => {
           alignItems="center"
           gap="2rem"
         >
-          <AddShoppingCartIcon sx={{ fontSize: "5vmin", color: "#023e8a" }} />
+          <AddShoppingCartIcon sx={{ fontSize: "5vmin", color: "#000" }} />
           <Typography sx={{ color: "#000", fontWeight: "bold" }}>
             Your shopping cart is empty
           </Typography>
           <Link to="/posts">
             <Button
               sx={{
-                color: "#fff",
-                backgroundColor: "#023e8a",
+                color: "#000",
+                border: "2px solid #000",
+                backgroundColor: "#E3DDCC",
                 borderRadius: "35px",
                 fontWeight: "bold",
                 // width: "100%",
@@ -281,112 +302,167 @@ const Cart = () => {
               alignItems="center"
               paddingBottom="1vmin"
             >
-              <GooglePayButton
-                environment="TEST"
-                buttonSizeMode="fill"
-                paymentRequest={{
-                  apiVersion: 2,
-                  apiVersionMinor: 0,
-                  allowedPaymentMethods: [
-                    {
-                      type: "CARD",
-                      parameters: {
-                        allowedAuthMethods: ["PAN_ONLY", "CRYPTOGRAM_3DS"],
-                        allowedCardNetworks: ["MASTERCARD", "VISA"],
-                      },
-                      tokenizationSpecification: {
-                        type: "PAYMENT_GATEWAY",
+              {clientToken === null ? (
+                <Typography>Loading...</Typography>
+              ) : (
+                <GooglePayButton
+                  environment="TEST"
+                  buttonSizeMode="fill"
+                  paymentRequest={{
+                    apiVersion: 2,
+                    apiVersionMinor: 0,
+                    allowedPaymentMethods: [
+                      {
+                        type: "CARD",
                         parameters: {
-                          gateway: "example",
-                          gatewayMerchantId: "exampleGatewayMerchantId",
+                          allowedAuthMethods: ["PAN_ONLY", "CRYPTOGRAM_3DS"],
+                          allowedCardNetworks: ["MASTERCARD", "VISA"],
+                        },
+                        tokenizationSpecification: {
+                          type: "PAYMENT_GATEWAY",
+                          parameters: {
+                            gateway: "braintree",
+                            "braintree:apiVersion": "v1",
+                            "braintree:sdkVersion": "3.16.0",
+                            "braintree:merchantId": "r6nzsbk3vn4wr6bs",
+                            "braintree:authorizationFingerprint": clientToken,
+                          },
                         },
                       },
-                    },
-                  ],
-                  merchantInfo: {
-                    merchantId: "BCR2DN4TWKAKDNLR",
-                    merchantName: "admin",
-                  },
-                  transactionInfo: {
-                    totalPriceStatus: "FINAL",
-                    totalPriceLabel: "Total",
-                    totalPrice: totalPrice.toString(),
-                    currencyCode: "GEL",
-                    countryCode: "GE",
-                  },
-                  shippingAddressRequired: true,
-                  shippingAddressParameters: {
-                    allowedCountryCodes: ["US", "GE"], // adjust this to the country codes you support
-                    phoneNumberRequired: true,
-                  },
-                  shippingOptionRequired: true,
-                  shippingOptionParameters: {
-                    defaultSelectedOptionId: "Free",
-                    shippingOptions: [
-                      {
-                        id: "Free",
-                        label: "Free Shipping",
-                        description: "Delivered in 5 business days",
-                      },
                     ],
-                  },
-                }}
-                onLoadPaymentData={async (paymentRequest) => {
-                  console.log(
-                    "load payment data",
-                    paymentRequest.paymentMethodData
-                  );
+                    merchantInfo: {
+                      merchantId: "BCR2DN4T52LJNFQH",
+                      merchantName: "ecommerce",
+                    },
+                    transactionInfo: {
+                      totalPriceStatus: "FINAL",
+                      totalPriceLabel: "Total",
+                      totalPrice: totalPrice.toString(),
+                      currencyCode: "GEL",
+                      countryCode: "GE",
+                    },
+                    shippingAddressRequired: true,
+                    shippingAddressParameters: {
+                      allowedCountryCodes: ["US", "GE"], // adjust this to the country codes you support
+                      phoneNumberRequired: true,
+                    },
+                    shippingOptionRequired: true,
+                    shippingOptionParameters: {
+                      defaultSelectedOptionId: "Free",
+                      shippingOptions: [
+                        {
+                          id: "Free",
+                          label: "უფასო მიტანა",
+                          description: "3-5 სამუშაო დღეში",
+                        },
+                      ],
+                    },
+                  }}
+                  onLoadPaymentData={async (paymentRequest) => {
+                    console.log(
+                      "load payment data",
+                      paymentRequest.paymentMethodData
+                    );
 
-                  const { shippingAddress } = paymentRequest;
-                  if (shippingAddress) {
-                    // Construct your order data
-                    const orderData = {
-                      items: cartItems.map((item: Item) => ({
-                        productId: item._id,
-                        title: item.title,
-                        selectedFlavor: item.selectedFlavor,
-                        price: item.price,
-                        quantity: item.quantity,
-                      })),
-                      totalPrice: totalPrice,
-                      customerDetails: {
-                        name: shippingAddress.name, // use data from Google Pay
-                        address: shippingAddress.address1, // use data from Google Pay
-                        phoneNumber: shippingAddress.phoneNumber, // placeholder, replace with actual data
-                      },
-                    };
+                    const { shippingAddress } = paymentRequest;
+                    if (shippingAddress) {
+                      // Extract the nonce (token) from paymentMethodData
+                      const paymentNonceFromGooglePay =
+                        paymentRequest.paymentMethodData.tokenizationData.token;
+                      console.log("Type of Nonce:", paymentNonceFromGooglePay);
 
-                    // Post the orderData to your API
-                    const response = await fetch(
-                      "http://localhost:8080/api/v1/order",
-                      {
+                      // Construct your order data
+                      const orderData = {
+                        paymentNonce: paymentNonceFromGooglePay,
+                        totalPrice: totalPrice,
+                        items: cartItems.map((item: Item) => ({
+                          productId: item._id,
+                          title: item.title,
+                          selectedFlavor: item.selectedFlavor,
+                          price: item.price,
+                          quantity: item.quantity,
+                        })),
+                        customerDetails: {
+                          name: shippingAddress.name, // use data from Google Pay
+                          address: shippingAddress.address1, // use data from Google Pay
+                          phoneNumber: shippingAddress.phoneNumber, // placeholder, replace with actual data
+                        },
+                      };
+
+                      console.log(
+                        "Payment Nonce from Google Pay:",
+                        paymentNonceFromGooglePay
+                      );
+                      console.log("Total Price:", totalPrice);
+                      console.log("paymentRequest", paymentRequest);
+
+                      // Post the orderData to your API
+                      await fetch("http://localhost:8080/api/v1/order", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(orderData),
-                      }
-                    );
+                      })
+                        .then((response) => {
+                          if (!response.ok) {
+                            throw new Error("HTTP error " + response.status);
+                          }
+                          return response.json();
+                        })
+                        .then((responseData) => {
+                          console.log(
+                            "Order created successfully:",
+                            responseData
+                          );
+                          navigate(`/success/${responseData.order._id}`);
 
-                    if (response.ok) {
-                      const responseData = await response.json();
-                      console.log("Order created successfully:", responseData);
-                      navigate(`/success/${responseData.order._id}`);
+                          setCartItems([]); // set cart items to an empty array
+                          setTotalPrice(0); // set total price to 0
+                          localStorage.removeItem("cartItems"); // remove items from localStorage
+                          localStorage.removeItem("totalPrice"); // remove total price from localStorage
+                        })
+                        .catch((error) => {
+                          console.log("Fetching failed:", error);
+                          toast.error(
+                            "There was an error while creating the order: " +
+                              error.message
+                          );
+                        });
 
-                      setCartItems([]); // set cart items to an empty array
-                      setTotalPrice(0); // set total price to 0
-                      localStorage.removeItem("cartItems"); // remove items from localStorage
-                      localStorage.removeItem("totalPrice"); // remove total price from localStorage
-                    } else {
-                      // handle error during order creation
-                      console.log("Error creating order:", response);
-                      toast.error(
-                        "There was an error while creating the order"
+                      // Now, process the payment
+                      const paymentResponse = await fetch(
+                        "http://localhost:8080/api/v1/order/process_payment",
+                        {
+                          method: "POST",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify({
+                            paymentNonce: paymentNonceFromGooglePay,
+                            totalPrice: totalPrice,
+                          }),
+                        }
                       );
+
+                      if (paymentResponse.ok) {
+                        const responseData = await paymentResponse.json();
+                        console.log(
+                          "Payment processed successfully:",
+                          responseData
+                        );
+                      } else {
+                        // handle error during payment processing
+                        console.log(
+                          "Error processing payment:",
+                          paymentResponse
+                        );
+                        toast.error(
+                          "There was an error while processing the payment"
+                        );
+                      }
+                    } else {
+                      toast.error("Shipping address is undefined");
                     }
-                  } else {
-                    toast.error("Shipping address is undefined");
-                  }
-                }}
-              />
+                  }}
+                />
+              )}
             </Stack>
           </Box>
         )}

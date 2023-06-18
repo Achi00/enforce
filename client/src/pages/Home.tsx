@@ -80,9 +80,8 @@ const Home = () => {
       component="div"
       display="flex"
       flexDirection="column"
-      gap="15rem"
       width="100%"
-      height="auto"
+      height="100%"
       justifyContent="center"
       alignItems="center"
       color="#000"
@@ -102,6 +101,8 @@ const Home = () => {
           alignItems: "center",
           justifyContent: "center",
           mb: 5, // adds bottom margin
+          position: "relative",
+          top: "-180px",
         }}
       >
         {/* main banner */}
@@ -177,14 +178,15 @@ const Home = () => {
                 width: "100%",
                 justifyContent: "center",
                 alignItems: "center",
+                gap: "2vmin",
               }}
             >
               {/* card 1 */}
               <Stack
-                direction="row"
+                width={{ lg: "80%", md: "650px", sm: "400px", xs: "280px" }}
+                direction={{ lg: "row", md: "row", sm: "column", xs: "column" }}
                 sx={{
                   background: "#F5EFDF",
-                  width: "80%",
                   height: "600px",
                   borderRadius: "35px",
                   overflow: "hidden",
@@ -195,7 +197,8 @@ const Home = () => {
                 }}
               >
                 <Stack
-                  sx={{ backgroundColor: "#000", width: "33.3%" }}
+                  sx={{ backgroundColor: "#000" }}
+                  width={{ lg: "33.3%", md: "33.3%", sm: "100%", xs: "100%" }}
                   direction="column"
                   color="#fff"
                   zIndex="2"
@@ -203,6 +206,7 @@ const Home = () => {
                   justifyContent="center"
                   alignItems="center"
                   padding="1vmin"
+                  pb={{ lg: "2vmin", md: "2vmin", sm: "3vmin", xs: "3vmin" }}
                 >
                   <Typography fontSize="3vmin" fontWeight="400">
                     Whey Protein
@@ -220,20 +224,26 @@ const Home = () => {
                     height="50px"
                   />
                 </Stack>
-                <ArrowDownwardIcon
-                  sx={{
-                    mt: "15px",
-                    color: "#000",
-                    fontSize: "4vmin",
-                    border: "1px solid #000",
-                    borderRadius: "50%",
-                  }}
-                />
+                <Box
+                  display={{ lg: "block", md: "block", sm: "none", xs: "none" }}
+                >
+                  <ArrowDownwardIcon
+                    sx={{
+                      mt: "15px",
+                      color: "#000",
+                      fontSize: "4vmin",
+                      border: "1px solid #000",
+                      borderRadius: "50%",
+                    }}
+                  />
+                </Box>
                 <Stack
-                  sx={{ backgroundColor: "#D8D2BF", width: "33.3%" }}
+                  sx={{ backgroundColor: "#D8D2BF" }}
+                  width={{ lg: "33.3%", md: "33.3%", sm: "100%", xs: "100%" }}
                   direction="column"
                   color="#000"
                   zIndex="2"
+                  pb={{ lg: "2vmin", md: "2vmin", sm: "3vmin", xs: "3vmin" }}
                   textAlign="center"
                   justifyContent="center"
                   alignItems="center"
@@ -246,7 +256,7 @@ const Home = () => {
                     Free Shipping
                   </Typography>
                   <CustomButton
-                    title={"More"}
+                    title={"Buy Now"}
                     backgroundColor="#000"
                     handleClick={() => navigate("/posts/create")}
                     color="#fff"
@@ -276,19 +286,31 @@ const Home = () => {
               <Box
                 sx={{
                   display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  width: "80%",
+                  width: "83%",
+                  gap: "2vmin",
                 }}
+                flexDirection={{
+                  lg: "row",
+                  md: "row",
+                  sm: "column",
+                  xs: "column",
+                }}
+                justifyContent={{
+                  lg: "space-between",
+                  md: "space-between",
+                  sm: "center",
+                  xs: "center",
+                }}
+                alignItems="center"
               >
                 {/* card 2 */}
                 <Stack
                   m="2rem"
+                  width={{ lg: "45%", md: "45%", sm: "90%", xs: "200px" }}
                   direction="row"
                   sx={{
                     background:
                       "linear-gradient(90deg, #F5EFDF 0%, #D8D2BF 100%)",
-                    width: "45%",
                     height: "250px",
                     borderRadius: "35px",
                     border: "1px solid black",
@@ -324,7 +346,7 @@ const Home = () => {
                   <ArrowOutwardIcon
                     sx={{
                       zIndex: "10",
-                      color: "#f2f2f2",
+                      color: "#000",
                       fontSize: "4vmin",
                     }}
                   />
@@ -346,32 +368,33 @@ const Home = () => {
                 {/* card 3 */}
                 <Stack
                   m="2rem"
-                  direction="row"
+                  direction={{
+                    lg: "row",
+                    md: "column",
+                    sm: "row",
+                    xs: "column",
+                  }}
+                  justifyContent={{
+                    lg: "center",
+                    md: "space-between",
+                    sm: "space-around",
+                    xs: "center",
+                  }}
+                  width={{ lg: "45%", md: "45%", sm: "90%", xs: "200px" }}
                   sx={{
-                    background: "linear-gradient(to right, #000 0%, #000 100%)",
-                    width: "45%",
+                    background: "#000",
                     height: "250px",
                     borderRadius: "35px",
                     padding: "1rem",
                     overflow: "hidden",
                     position: "relative",
                     display: "flex",
-                    justifyContent: "center",
                     alignItems: "center",
                     cursor: "pointer",
                   }}
                 >
-                  <CustomButton
-                    title={"Promo Codes"}
-                    backgroundColor="#F5EFDF"
-                    handleClick={() => navigate("/posts/create")}
-                    color="#000"
-                    width="150px"
-                    height="50px"
-                  />
                   <Stack direction="column" color="#f2f2f2" zIndex="2">
                     <Stack
-                      margin="2vmin"
                       gap="1vmin"
                       alignItems="center"
                       direction="column"
@@ -406,13 +429,17 @@ const Home = () => {
                         }}
                         color="#949494"
                       >
-                        <Typography fontWeight="700">01</Typography>
                         <Typography
-                          width="100px"
+                          width="150px"
                           fontWeight="700"
-                          fontSize="0.7vw"
+                          fontSize={{
+                            lg: "2vmin",
+                            md: "2vmin",
+                            sm: "3vmin",
+                            xs: "3vmin",
+                          }}
                         >
-                          Promo Codes
+                          01. Promo Codes
                         </Typography>
                       </Stack>
                       <Stack
@@ -429,13 +456,17 @@ const Home = () => {
                         }}
                         color="#949494"
                       >
-                        <Typography fontWeight="700">02</Typography>
                         <Typography
-                          width="100px"
+                          width="150px"
                           fontWeight="700"
-                          fontSize="0.7vw"
+                          fontSize={{
+                            lg: "2vmin",
+                            md: "2vmin",
+                            sm: "3vmin",
+                            xs: "3vmin",
+                          }}
                         >
-                          Free Shipping
+                          02. Free Shipping
                         </Typography>
                       </Stack>
                       <Stack
@@ -452,24 +483,28 @@ const Home = () => {
                         }}
                         color="#949494"
                       >
-                        <Typography fontWeight="700">03</Typography>
                         <Typography
-                          width="100px"
+                          width="150px"
                           fontWeight="700"
-                          fontSize="0.7vw"
+                          fontSize={{
+                            lg: "2vmin",
+                            md: "2vmin",
+                            sm: "3vmin",
+                            xs: "3vmin",
+                          }}
                         >
-                          Gifts
+                          03. Gifts
                         </Typography>
                       </Stack>
                     </Stack>
                   </Stack>
                   <CustomButton
-                    title={"Sales"}
+                    title={"Promo Codes"}
                     backgroundColor="#F5EFDF"
-                    handleClick={() => navigate("/posts/create")}
+                    handleClick={() => navigate("/promo")}
                     color="#000"
                     width="150px"
-                    height="50px"
+                    height="40px"
                   />
                   <ArrowOutwardIcon
                     sx={{
@@ -497,7 +532,7 @@ const Home = () => {
                 }}
               >
                 <Typography color="#000" fontSize="3vmin">
-                  Save More
+                  Info
                 </Typography>
                 {/* row 1 */}
                 <Stack
@@ -657,10 +692,37 @@ const Home = () => {
                 </Stack>
               </Box>
             </Box>
+            <Box
+              mt={2.5}
+              width={{ lg: "95%", md: "95%", sm: "90%", xs: "85%" }}
+              margin={{ lg: "2vmin", md: "1vmin", sm: "0", xs: "0" }}
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 2,
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: "25px",
+              }}
+            >
+              {latestPosts &&
+                latestPosts.map((post: any) => (
+                  <PostCard
+                    key={post._id}
+                    id={post._id}
+                    description={post.description}
+                    productType={post.productType}
+                    title={post.title}
+                    photo={post.photo}
+                    photo2={post.photo2}
+                    price={post.price}
+                  />
+                ))}
+            </Box>
           </Box>
         </Box>
       </Box>
-      <Box>
+      {/* <Box>
         <motion.div
           variants={revealVariants}
           initial="hidden"
@@ -703,7 +765,7 @@ const Home = () => {
               ))}
           </Box>
         </motion.div>
-      </Box>
+      </Box> */}
     </Box>
   );
 };
