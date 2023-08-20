@@ -283,14 +283,15 @@ const PostDetails = () => {
           >
             <Typography
               sx={{
-                backgroundColor: "#F5EFDF",
                 display: "flex",
-                color: "#000",
+                color: "#fff",
                 border: "1px solid #000",
-                borderRadius: "25px",
+                backgroundColor: "#000",
+                borderRadius: "8px",
                 gap: "1vmin",
                 px: "1rem",
                 width: "180px",
+                height: "38px",
                 justifyContent: "center",
               }}
               component="h2"
@@ -302,14 +303,15 @@ const PostDetails = () => {
             </Typography>
             <Typography
               sx={{
-                backgroundColor: "#F5EFDF",
                 display: "flex",
-                color: "#000",
+                color: "#fff",
                 border: "1px solid #000",
-                borderRadius: "25px",
+                backgroundColor: "#000",
+                borderRadius: "8px",
                 gap: "1vmin",
                 px: "1rem",
                 width: "180px",
+                height: "38px",
                 justifyContent: "center",
               }}
               component="h2"
@@ -322,14 +324,15 @@ const PostDetails = () => {
 
             <Typography
               sx={{
-                backgroundColor: "#F5EFDF",
                 display: "flex",
-                color: "#000",
+                color: "#fff",
                 border: "1px solid #000",
-                borderRadius: "25px",
+                backgroundColor: "#000",
+                borderRadius: "8px",
                 gap: "1vmin",
                 px: "1rem",
                 width: "180px",
+                height: "38px",
                 justifyContent: "center",
               }}
               component="h2"

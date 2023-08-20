@@ -7,7 +7,7 @@ import { motion, useTransform } from "framer-motion";
 import { revealVariants, textRevealVariant } from "../assets/motion.js";
 import { Loading } from "components";
 import { useNavigate } from "@pankod/refine-react-router-v6";
-import { bottle, enforce } from "../assets";
+import { bottle, enforce, muscletech } from "../assets";
 import AddIcon from "@mui/icons-material/Add";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
@@ -186,7 +186,7 @@ const Home = () => {
                 width={{ lg: "80%", md: "650px", sm: "400px", xs: "280px" }}
                 direction={{ lg: "row", md: "row", sm: "column", xs: "column" }}
                 sx={{
-                  background: "#F5EFDF",
+                  background: "#fff",
                   height: "600px",
                   borderRadius: "35px",
                   overflow: "hidden",
@@ -209,39 +209,51 @@ const Home = () => {
                   pb={{ lg: "2vmin", md: "2vmin", sm: "3vmin", xs: "3vmin" }}
                 >
                   <Typography fontSize="3vmin" fontWeight="400">
-                    Whey Protein
+                    ფასდაკლება
                   </Typography>
                   <Typography fontSize="1.5vmin" fontWeight="100" color="#fff">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Reiciendis minima exercitationem eum nostrum.
+                    შეუკვეთე ონლაინ და მიიღე საუკეთესო შეთავაზებები
                   </Typography>
                   <CustomButton
-                    title={"More"}
+                    title={"გაიგე მეტი"}
                     backgroundColor="#D8D2BF"
-                    handleClick={() => navigate("/posts/create")}
+                    handleClick={() => navigate("/posts")}
                     color="#000"
                     width="150px"
                     height="50px"
                   />
                 </Stack>
-                <Box
-                  display={{ lg: "block", md: "block", sm: "none", xs: "none" }}
-                >
-                  <ArrowDownwardIcon
-                    sx={{
-                      mt: "15px",
-                      color: "#000",
-                      fontSize: "4vmin",
-                      border: "1px solid #000",
-                      borderRadius: "50%",
-                    }}
-                  />
-                </Box>
                 <Stack
-                  sx={{ backgroundColor: "#D8D2BF" }}
+                  direction="column"
+                  alignItems="center"
+                  justifyContent="flex-start"
+                >
+                  <Box
+                    display={{
+                      lg: "block",
+                      md: "block",
+                      sm: "none",
+                      xs: "none",
+                    }}
+                  >
+                    <ArrowDownwardIcon
+                      sx={{
+                        mt: "15px",
+                        color: "#000",
+                        fontSize: "4vmin",
+                        border: "1px solid #000",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  </Box>
+                  <Typography color="#000">
+                    Lorem ipsum dolor sit amet consectetur.
+                  </Typography>
+                </Stack>
+                <Stack
+                  sx={{ backgroundColor: "#000", color: "#fff" }}
                   width={{ lg: "33.3%", md: "33.3%", sm: "100%", xs: "100%" }}
                   direction="column"
-                  color="#000"
                   zIndex="2"
                   pb={{ lg: "2vmin", md: "2vmin", sm: "3vmin", xs: "3vmin" }}
                   textAlign="center"
@@ -250,16 +262,16 @@ const Home = () => {
                   padding="1vmin"
                 >
                   <Typography fontSize="3vmin" fontWeight="400">
-                    Make Order Now!
+                    პრომო კოდი
                   </Typography>
                   <Typography fontSize="1.5vmin" fontWeight="100">
-                    Free Shipping
+                    გამოიყენე პრომო კოდი და დაზოგე მეტი
                   </Typography>
                   <CustomButton
                     title={"Buy Now"}
-                    backgroundColor="#000"
-                    handleClick={() => navigate("/posts/create")}
-                    color="#fff"
+                    backgroundColor="#fff"
+                    handleClick={() => navigate("/promo")}
+                    color="#000"
                     width="150px"
                     height="50px"
                   />
@@ -267,14 +279,17 @@ const Home = () => {
                 <Stack
                   direction="column"
                   position="absolute"
-                  top="40%"
+                  top="42%"
                   right="50%"
-                  sx={{ transform: "translate(50%, 0%)" }}
+                  sx={{
+                    transform: "translate(50%, 0%)",
+                  }}
                 >
                   <img
-                    src={bottle}
-                    alt="enforce"
-                    width={650}
+                    src={muscletech}
+                    alt="gainforce"
+                    width="100%"
+                    height="auto"
                     style={{
                       padding: "1rem",
                       pointerEvents: "none",

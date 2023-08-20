@@ -370,6 +370,19 @@ const Cart = () => {
                       const paymentNonceFromGooglePay =
                         paymentRequest.paymentMethodData.tokenizationData.token;
                       console.log("Type of Nonce:", paymentNonceFromGooglePay);
+                      console.log("paymentRequest:", paymentRequest);
+                      console.log(
+                        "paymentMethodData:",
+                        paymentRequest.paymentMethodData
+                      );
+                      console.log(
+                        "tokenizationData:",
+                        paymentRequest.paymentMethodData.tokenizationData
+                      );
+                      console.log(
+                        "Token:",
+                        paymentRequest.paymentMethodData.tokenizationData.token
+                      );
 
                       // Construct your order data
                       const orderData = {

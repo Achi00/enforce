@@ -200,7 +200,7 @@ export const Sider: typeof DefaultSider = ({ render }) => {
                 sx={{
                   justifyContent: "center",
                   minWidth: 36,
-                  color: isSelected ? "#F5EFDF" : "#000",
+                  color: isSelected ? "#f2f2f2" : "#000",
                 }}
               >
                 {icon ?? <ListOutlined />}
@@ -211,7 +211,7 @@ export const Sider: typeof DefaultSider = ({ render }) => {
                   noWrap: true,
                   fontSize: "16px",
                   fontWeight: isSelected ? "bold" : "normal",
-                  color: isSelected ? "#F5EFDF" : "#160A17",
+                  color: isSelected ? "#f2f2f2" : "#160A17",
                   marginLeft: "10px",
                 }}
               />
@@ -462,7 +462,7 @@ export const Sider: typeof DefaultSider = ({ render }) => {
                   width: "90%",
                   height: "90%",
                   padding: "1rem",
-                  background: "#F5EFDF",
+                  background: "#f2f2f2",
                   border: "1px solid #000",
                   borderRadius: "15px",
                   gap: "1rem",
